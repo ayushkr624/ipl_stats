@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>IPL STATS Viewer</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{% static 'images/kreditbee_small_icon.jpg' %}" />
+  </head>
+  <style>
+
+  </style>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="{% url 'index' %}"></a>
+          <a class="navbar-brand brand-logo-mini" href="{% url 'index' %}"></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="{% static 'images/faces/face1.jpg' %}" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black">USER</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href=''>
+                  <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+
+
+          </ul>
+
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+
+            </div>
+            <div class="row">
+
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Select Season</h4>
+                    <p class="card-description"></p>
+                    <form class="forms-sample" action= "{% url 'highest_margin_team_winner' %}"  method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                      <div class="row">
+                        <div class="col-md-6 ">
+
+                        <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Season</label>
+                        <div class="col-sm-8">
+                        <select class="form-control form-control-sm" id="Season" name = 'Season' required>
+                        <option value="2008" selected="selected">2008</option>
+                        <option value="2009">2009</option>
+                        <option value="2010">2010</option>
+                        <option value="2011">2011</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+
+                        </select>
+                        </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+<!--                      <button class="btn btn-light" onClick="this.form.reset()">Cancel</button>-->
+                      <input type="button" class="btn btn-light" value="Reset" onClick="this.form.reset()" />
+                    </form>
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Winner</th>
+                          <th>Count.</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr>
+
+                         {% for key, value in values.items %}
+
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+
+
+
+                      </tbody>
+                    </table>
+
+
+<!--                    <div class="{{ class }}" role="alert">-->
+<!--                          {{ message }}-->
+<!--                       <button type="button" class="close" data-dismiss="alert">&times;</button>-->
+<!--                    </div>-->
+<!--                    <p class="{{ class }}">{{ message }}</p>-->
+<!--                    <div class='user'> {{ message }} </div>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <footer class="footer">
+
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{% static 'js/off-canvas.js' %}"></script>
+    <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'js/misc.js' %}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{% static 'js/file-upload.js' %}"></script>
+<!--        <script>-->
+<!--    $(function(){-->
+<!--      $(document).ready(function() {-->
+<!--  $('.summernote').summernote();-->
+<!--});-->
+<!--}-->
+<!--    </script>-->
+
+    <!-- End custom js for this page -->
+  </body>
+</html>
